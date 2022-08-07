@@ -8,7 +8,7 @@ public:
         for(int i=0;i<n;i++)
             dp[i][0] = 1;
         for(int i=1;i<n;i++){
-            for(int j=0;j<=amount;j++){
+            for(int j=1;j<=amount;j++){
                 int p=0;
                 if(j>=coins[i])
                     p = dp[i][j-coins[i]];
