@@ -9,13 +9,13 @@ public:
         long long bc = (b*c)/__gcd(b,c);
         long long ac = (a*c)/__gcd(a,c);
         long long abc = (a*bc)/__gcd(a,bc);
-        while(l<h){
+        while(l<=h){
             long long mid = l + (h-l)/2;
             long long cnt = (mid/a + mid/b + mid/c + mid/abc - mid/ab - mid/bc - mid/ac);
             if(cnt<n)
                 l = mid + 1;
             else
-                h = mid;
+                h = mid-1;
         }
         return (int)l;
     }
