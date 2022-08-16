@@ -7,12 +7,9 @@ public:
                 sum += num%10;
                 num /= 10;
             }
-            if(sum>=10)
-                num = sum;
-            else{
-                num = sum;
+            num = sum;
+            if(num>=0 && num<=9)
                 break;
-            }
         }
         return num;
     }
