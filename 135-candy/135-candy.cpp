@@ -2,26 +2,17 @@ class Solution {
 public:
     int candy(vector<int>& ratings) {
         int n=ratings.size();
-        int i=1,sum=n;
-        while(i<n){
-            if(ratings[i]==ratings[i-1]){
-                ++i;
-                continue;
-            }
-            int up=0;
-            while(i<n && ratings[i]>ratings[i-1]){
-                ++up;
-                sum += up;
-                ++i;
-            }
-            int down=0;
-            while(i<n && ratings[i]<ratings[i-1]){
-                ++down;
-                sum += down;
-                ++i;
-            }
-            sum -= min(up,down);
+        vector<int> v(n,1);
+        for(int i=1;i<n;i++){
+            if(ratings[i]>ratings[i-1] && v[i]<=v[i-1])
+                v[i] = v[i-1] + 1;
         }
+        for(int i=n-2;i>=0;i--)
+            if(ratings[i]>ratings[i+1] && v[i]<=v[i+1])
+                v[i] = v[i+1] + 1;
+        int sum=0;
+        for(int i=0;i<n;i++)
+            sum += v[i];
         return sum;
     }
 };
