@@ -8,17 +8,11 @@ public:
         for(auto it:mp){
             if(it.second==1)
                 return -1;
-            while(it.second>=3){
-                it.second -= 3;
-                ++cnt;
-                if(it.second==1){
-                    ++cnt;
-                    break;
-                }
+            else if(it.second%3==0){
+                cnt += it.second/3;
             }
-            while(it.second>=2){
-                it.second -= 2;
-                ++cnt;
+            else{
+                cnt += it.second/3 + 1;
             }
         }
         return cnt;
