@@ -101,24 +101,11 @@ class Solution{
     //Function to find the height of a binary tree.
     int height(struct Node* node){
         // code here 
-        vector<vector<int>> vec;
-        queue<Node*> q;
-        q.push(node);
-        while(!q.empty()){
-            vector<int> v;
-            int n = q.size();
-            for(int i=0;i<n;i++){
-                auto it = q.front();
-                q.pop();
-                v.push_back(it->data);
-                if(it->left)
-                    q.push(it->left);
-                if(it->right)
-                    q.push(it->right);
-            }
-            vec.push_back(v);
-        }
-        return vec.size();
+        if(!node)
+            return 0;
+        int l = height(node->left);
+        int r = height(node->right);
+        return max(l,r)+1;
     }
 };
 
