@@ -23,35 +23,17 @@ class Solution
 {
     public:
     //Function to check whether a Binary Tree is BST or not.
-    void fun(Node* root,vector<int>&v){
-        stack<Node*> st;
-        while(true){
-            if(root){
-                st.push(root);
-                root = root->left;
-            }
-            else{
-                if(st.empty())
-                    break;
-                root = st.top();
-                st.pop();
-                v.push_back(root->data);
-                root = root->right;
-            }
-        }
+    bool isValid(Node* root,int mini,int maxi){
+        if(!root)
+            return true;
+        if(root->data<=mini || root->data>=maxi)
+            return false;
+        return isValid(root->left,mini,root->data) && isValid(root->right,root->data,maxi);
     }
     bool isBST(Node* root) 
     {
         // Your code here
-        vector<int> v;
-        fun(root,v);
-        vector<int> temp = v;
-        sort(temp.begin(),temp.end());
-        if(temp==v){
-            set<int> s(v.begin(),v.end());
-            return s.size()==v.size();
-        }
-        return false;
+        return isValid(root,INT_MIN,INT_MAX);
     }
 };
 
