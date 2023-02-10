@@ -94,41 +94,52 @@ struct Node {
     }
 };
 */
-
+class BSTIterator{
+    public:
+        bool reverse;
+        stack<Node*> st;
+        BSTIterator(Node* root,bool isReverse){
+            reverse = isReverse;
+            pushAll(root);
+        }
+        void pushAll(Node* root){
+            while(root){
+                st.push(root);
+                if(!reverse)
+                    root = root->left;
+                else
+                    root = root->right;
+            }
+        }
+        int next(){
+            Node* temp = st.top();
+            st.pop();
+            if(!reverse)
+                pushAll(temp->right);
+            else
+                pushAll(temp->left);
+            return temp->data;
+        }
+};
 class Solution{
   public:
     // root : the root Node of the given BST
     // target : the target sum
-    void inOrder(Node* root,vector<int>&v){
-        stack<Node*> st;
-        while(true){
-            if(root){
-                st.push(root);
-                root = root->left;
-            }
-            else{
-                if(st.empty())
-                    break;
-                root = st.top();
-                st.pop();
-                v.push_back(root->data);
-                root = root->right;
-            }
-        }
-    }
     int isPairPresent(struct Node *root, int target)
     {
-        //add code here.
-        vector<int> v;
-        inOrder(root,v);
-        int i=0,j=v.size()-1;
+    //add code here.
+        if(!root)
+            return false;
+        BSTIterator l(root,false);
+        BSTIterator r(root,true);
+        int i=l.next(),j=r.next();
         while(i<j){
-            if((target-v[i]) == v[j])
+            if((i+j)==target)
                 return true;
-            else if((target-v[i]) > v[j])
-                ++i;
+            else if((i+j)<target)
+                i = l.next();
             else
-                --j;
+                j = r.next();
         }
         return false;
     }
