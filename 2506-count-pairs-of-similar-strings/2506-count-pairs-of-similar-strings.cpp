@@ -17,12 +17,10 @@ public:
         int ans=0;
         unordered_map<string,int>mp;
         for(auto it:v){
-            // ans += mp[it];
+            ans += mp[it];
             mp[it]++;
         }
-        for(auto it:mp){
-            ans+=(it.second*(it.second-1))/2;
-        }
+      
         return ans;
     }
 };
