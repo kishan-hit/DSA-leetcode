@@ -13,6 +13,7 @@ class Solution {
     void dfs(int row,int col,vector<int>&del_r,vector<int>&del_c,vector<vector<int>>&vis,
     vector<vector<int>>&grid){
         vis[row][col] = 1;
+        grid[row][col] = 0;
         for(int i=0;i<4;i++){
             int temp_r = row + del_r[i];
             int temp_c = col + del_c[i];
@@ -39,11 +40,6 @@ class Solution {
                 dfs(grid.size()-1,j,del_r,del_c,vis,grid);
         }
         int cnt=0;
-        for(int i=1;i<grid.size()-1;i++){
-            for(int j=1;j<grid[0].size()-1;j++)
-                if(vis[i][j])
-                    grid[i][j] = 0;
-        }
         for(int i=1;i<grid.size()-1;i++){
             for(int j=1;j<grid[0].size()-1;j++)
                 if(grid[i][j])
