@@ -98,43 +98,35 @@ struct Node {
         left = right = NULL;
     }
 };*/
-
+class NewNode{
+    public:
+        int minNode,maxNode,maxSize;
+        NewNode(int minNode,int maxNode,int maxSize){
+            this->minNode = minNode;
+            this->maxNode = maxNode;
+            this->maxSize = maxSize;
+        }
+};
 class Solution{
     public:
     /*You are required to complete this method */
     // Return the size of the largest sub-tree which is also a BST
-    int maxi=INT_MIN;
-    void inOrderTwo(Node *root,vector<int>&v){
-        if(!root)
-            return;
-        inOrderTwo(root->left,v);
-        v.push_back(root->data);
-        inOrderTwo(root->right,v);
-    }
-    bool validate(Node *root,int mini,int maxi){
-        if(!root)
-            return true;
-        if(root->data<=mini || root->data>=maxi)
-            return false;
-        return validate(root->left,mini,root->data) && validate(root->right,root->data,maxi);
-    }
-    void inOrderOne(Node *root){
-        if(!root)
-            return;
-        inOrderOne(root->left);
-        if(validate(root,INT_MIN,INT_MAX)){
-            vector<int> v;
-            inOrderTwo(root,v);
-            int n=v.size();
-            maxi=max(maxi,n);
+    NewNode helper(Node *root){
+        if(!root){
+            return NewNode(INT_MAX,INT_MIN,0);
         }
-        inOrderOne(root->right);
+        auto left = helper(root->left);
+        auto right = helper(root->right);
+        if((left.maxNode < root->data) && (root->data < right.minNode)){
+            return NewNode(min(left.minNode,root->data),max(root->data,right.maxNode),(1+left.maxSize+
+            right.maxSize));
+        }
+        return NewNode(INT_MIN,INT_MAX,max(left.maxSize,right.maxSize));
     }
     int largestBst(Node *root)
     {
     	//Your code here
-    	inOrderOne(root);
-    	return maxi;
+    	return helper(root).maxSize;
     }
 };
 
