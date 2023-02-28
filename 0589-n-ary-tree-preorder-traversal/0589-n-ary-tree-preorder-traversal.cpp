@@ -30,12 +30,9 @@ public:
             auto node = st.top();
             st.pop();
             v.push_back(node->val);
-            stack<Node*> temp;
-            for(auto it:node->children)
-                temp.push(it);
-            while(!temp.empty()){
-                st.push(temp.top());
-                temp.pop();
+            for(int i=node->children.size()-1;i>=0;i--){
+                if(node->children[i])
+                    st.push(node->children[i]);
             }
         }
         return v;
