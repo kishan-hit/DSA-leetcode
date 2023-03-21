@@ -11,9 +11,9 @@ public:
     {
         // Write Your Code here
         vector<bool> v(N,false);
-        for(int i=2;i<=N;i++){
-            for(int j=i*i;j<=N;j++){
-                if(j%i==0 && !v[j])
+        for(int i=2;i*i<=N;i++){
+            for(int j=i*i;j<=N;j+=i){
+                if(!v[j])
                     v[j] = true;
             }
         }
