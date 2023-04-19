@@ -9,14 +9,10 @@ public:
             if(mp.find(it)==mp.end())
                 temp += (it-'a'+1);
             else{
-                if(mp[it]>(it-'a'+1))
+                if(mp[it]>0)
                     temp += mp[it];
-                else{
-                    if(mp[it]<0)
-                        temp = max(0,temp+mp[it]);
-                    else
-                        temp += mp[it];
-                }
+                else
+                    temp = max(0,temp+mp[it]);
             }
             ans = max(ans,temp);
         }
