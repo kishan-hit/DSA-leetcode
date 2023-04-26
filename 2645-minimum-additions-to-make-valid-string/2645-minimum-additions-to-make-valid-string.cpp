@@ -1,28 +1,31 @@
 class Solution {
 public:
     int addMinimum(string word) {
-        unordered_map<char,int> mp;
-        int i=0,res=0,maxi=0;
+        int res=0,cnt=1,i=0;
         for(i=0;i<word.length()-1;i++){
             if(word[i]<word[i+1])
-                mp[word[i]]++;
+                ++cnt;
             else{
-                mp[word[i]]++;
-                for(auto it:mp)
-                    maxi = max(maxi,it.second);
-                res += (abs(maxi-mp['a']));
-                res += (abs(maxi-mp['b']));
-                res += (abs(maxi-mp['c']));
-                maxi=0;
-                mp.clear();
+                res += (3-cnt);
+                cnt = 1;
             }
         }
-        mp[word[i]]++;
-        for(auto it:mp)
-            maxi = max(maxi,it.second);
-        res += (abs(maxi-mp['a']));
-        res += (abs(maxi-mp['b']));
-        res += (abs(maxi-mp['c']));
+        if(word[i]=='a')
+            res += 2;
+        else if(word[i]=='b'){
+            if(!(i-1>=0 && word[i-1]=='a'))
+                res += 2;
+            else
+                res += 1;
+        }
+        else{
+            if(!(i-2>=0 && word[i-2]=='a' && word[i-1]=='b')){
+                if(!(i-1>=0 && word[i-1]=='b') && (!(i-1>=0 && word[i-1]=='a')))
+                    res += 2;
+                else
+                    res += 1;
+            }
+        }
         return res;
     }
 };
