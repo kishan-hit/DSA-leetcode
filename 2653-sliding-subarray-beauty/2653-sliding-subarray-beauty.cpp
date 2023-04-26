@@ -20,8 +20,8 @@ public:
                     }
                 }
                 mp[nums[j]]--;
-                if(mp[nums[j]]==0)
-                    mp.erase(nums[j]);
+                // if(mp[nums[j]]==0)
+                //     mp.erase(nums[j]);
                 ++j;
             }
         }
