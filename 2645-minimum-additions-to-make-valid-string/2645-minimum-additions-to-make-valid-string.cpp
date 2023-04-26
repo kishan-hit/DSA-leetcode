@@ -1,23 +1,19 @@
 class Solution {
 public:
     int addMinimum(string word) {
-        int res=0;
-        for(int i=0;i<word.length();){
-            int cnt=0;
-            if(word[i]=='a'){
-                ++cnt;
-                ++i;
+        unordered_map<char,int> mp;
+        int i=0,res=0;
+        for(i=0;i<word.length()-1;i++){
+            if(word[i]<word[i+1])
+                mp[word[i]]++;
+            else{
+                mp[word[i]]++;
+                res += (3-(mp['a']+mp['b']+mp['c']));
+                mp.clear();
             }
-            if(word[i]=='b'){
-                ++cnt;
-                ++i;
-            }
-            if(word[i]=='c'){
-                ++cnt;
-                ++i;
-            }
-            res += (3-cnt);
         }
+        mp[word[i]]++;
+        res += (3 - (mp['a']+mp['b']+mp['c']));
         return res;
     }
 };
